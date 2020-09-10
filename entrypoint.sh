@@ -27,7 +27,7 @@ EOF
 fi
 
 # Handle start of app server
-if [ "run" = "run" ]; then
+if [ "$1" = "run" ]; then
 
     echo "Configuration file:"
     echo
