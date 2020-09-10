@@ -64,7 +64,13 @@ def connect_ldap(conf, **kwargs):
                     use_ssl=conf.getboolean('use_ssl', False),
                     connect_timeout=5)
 
-    return Connection(server, raise_exceptions=True, **kwargs)
+    # Override connection credentials if bind_* variables are specified
+    tmp_kwargs = dict(kwargs)
+    if "bind_user" in conf and "bind_password" in conf and "user" in kwargs and 'password' in kwargs:
+        tmp_kwargs["user"] = conf["bind_user"]
+        tmp_kwargs["password"] = conf["bind_password"]
+
+    return Connection(server, raise_exceptions=True, **tmp_kwargs)
 
 
 def change_passwords(username, old_pass, new_pass):
