@@ -26,6 +26,14 @@ ad_domain = ${AD_DOMAIN}
 EOF
 fi
 
+if [ "x${BIND_USER}" != "x" ] && [ "x${BIND_PASSWORD}" != "x" ]; then
+cat << EOF >> settings.ini
+bind_user = ${BIND_USER}
+bind_password = ${BIND_PASSWORD}
+EOF
+fi
+
+
 # Handle start of app server
 if [ "$1" = "run" ]; then
 
